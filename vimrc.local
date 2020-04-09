@@ -1,0 +1,94 @@
+"Generic config
+  set expandtab ts=4 sw=4 ai
+  set wildmenu
+  set hlsearch
+  set number    relativenumber
+  set spell     spelllang =en_us
+  set ttymouse  =xterm2
+
+highlight clear SpellBad
+highlight clear SpellCap
+highlight clear SpellRare
+highlight clear SpellLocal
+highlight SpellBad   term=underline cterm=underline
+highlight SpellCap   term=underline cterm=underline
+highlight SpellRare  term=underline cterm=underline
+highlight SpellLocal term=underline cterm=underline
+
+"Plugins
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+  Plugin 'gmarik/Vundle.vim'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'Xuyuanp/nerdtree-git-plugin'
+  Plugin 'ctrlpvim/ctrlp.vim'
+  Bundle 'taglist.vim'
+  Plugin 'vim-airline/vim-airline'
+  Plugin 'valloric/youcompleteme'
+  call vundle#end()
+
+  let g:airline_detect_spell                      = 0
+  let g:airline_detect_spelllang                  = 0
+  let g:airline#extensions#tabline#enabled        = 1
+  let g:airline#extensions#tabline#show_buffers   = 0
+  let g:airline#extensions#tabline#formatter      = 'unique_tail'
+  let g:airline#extensions#tabline#show_tab_type  = 0
+  let g:airline#extensions#tabline#show_tab_type  = 0
+  let g:airline#extensions#tabline#show_splits    = 0
+  let g:airline#extensions#tabline#tab_nr_type    = 1
+
+"Tlist config(Function view inside file)
+  let Tlist_Compact_Format            = 1
+  let Tlist_Exit_OnlyWindow           = 1
+  let Tlist_File_Fold_Auto_Close      = 1
+  let Tlist_Enable_Fold_Column        = 0
+  let Tlist_Use_SingleClick           = 1
+  let Tlist_Show_One_File             = 1
+
+"NerdTree config (Directory structure)
+  let NERDTreeMinimalUI                         = 1
+  let NERDTreeDirArrows                         = 1
+  let g:NERDTreeWinPos                          = "right"
+  let g:NERDTreeDirArrowExpandable              = "+"
+  let g:NERDTreeDirArrowCollapsible             = "~"
+  let g:NERDTreeMouseMode                       = 3
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | qa | endif
+  let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "*",
+    \ "Staged"    : "+",
+    \ "Untracked" : "U",
+    \ "Renamed"   : "R",
+    \ "Unmerged"  : "X",
+    \ "Deleted"   : "D",
+    \ "Dirty"     : "XX",
+    \ "Clean"     : "C",
+    \ 'Ignored'   : "I",
+    \ "Unknown"   : ""
+    \ }
+
+let g:winManagerAutoOpen     = 0
+let g:winManagerWindowLayout = 'BufExplorer|TagList'
+nnoremap <Space> :tj <c-r><c-w><cr>
+map <C-F> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+"ctrlP - file search
+let g:ctrlp_by_filename = 1
+let g:ctrlp_tabpage_position = 'ac'
+let g:ctrlp_clear_cache_on_exit = 0
+set wildignore+=compilation_root/*,*/.git/*,*.so,*.swp,*.zip,*.mk,*.bat,*.Makefile,*.ini,*.py,*.sh,*.o,*.d
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+    \ 'AcceptSelection("t")': ['<cr>'],
+    \ }
+
+"Key mapping for the features
+  " Tlist Toggle "
+  nnoremap <silent> <F3>  :TlistToggle<CR>
+  " NerdTree Toggle "
+  nnoremap <silent> <F4>  :NERDTreeToggle<CR>
+  " Remove spaces end of the line(Generally before committing changes) "
+  nnoremap <silent> <F6>  :%s/\s\+$//e<CR>
+  set rtp+=~/.vim/bundle/Vundle.vim
+  " Mouse Toggle (Ctrl+M)"
+  nnoremap <silent> <C-M>  :exec &mouse!=""? "set mouse=" : "set mouse=nv"<CR>
